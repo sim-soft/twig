@@ -1,0 +1,29 @@
+{
+  "name": "simsoft/twig",
+  "description": "A Twig wrapper, built for Twig template engine.",
+  "keywords": [
+    "twig",
+    "template engine",
+    "php",
+    "simsoft"
+  ],
+  "type": "library",
+  "require": {
+    "php": "^8",
+    "twig/twig": "^3"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Simsoft\\Twig\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Example\\": "example"
+    }
+  },
+  "scripts": {
+    "test": "phpunit tests"
+  }
+}
