@@ -24,9 +24,13 @@ $twig = new Twig([
     'debug' => true, // default is false
     'charset' => 'UTF-8',
     'cache' => 'path/to/cache',
+    'timezone' => 'Asia/Kuala_Lumpur',
     'extensions' => [new \App\MyExtension()],
     'namespaces' => [
         'name' => '/path/to/template',
+        'layouts' => '/path/to/layouts',
+        'macros' => '/path/to/macros',
+        'components' => '/path/to/components',
     ],
 ]);
 
