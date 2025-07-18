@@ -7,6 +7,7 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Extension\CoreExtension;
 use Twig\Extension\ExtensionInterface;
 use Twig\Loader\FilesystemLoader;
 use Twig\TemplateWrapper;
@@ -68,6 +69,10 @@ class Twig
             }
 
             $this->twig = new Environment($loader, $options);
+
+            if (!empty($this->config['timezone'])) {
+                $this->twig->getExtension(CoreExtension::class)->setTimezone($this->config['timezone']);
+            }
 
             if (array_key_exists('extensions', $this->config)) {
                 foreach ($this->config['extensions'] as $extensionClass) {
