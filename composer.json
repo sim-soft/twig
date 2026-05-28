@@ -1,18 +1,39 @@
 {
   "name": "simsoft/twig",
-  "description": "A Twig wrapper, built for Twig template engine.",
+  "description": "A lightweight Twig wrapper that simplifies template engine setup with configuration-driven initialization, namespace support, and easy extension authoring.",
   "keywords": [
     "twig",
-    "template engine",
+    "twig-wrapper",
+    "template",
+    "template-engine",
+    "templating",
+    "view",
+    "render",
     "php",
     "simsoft"
   ],
   "type": "library",
-  "require": {
-    "php": "^8",
-    "twig/twig": "^3"
-  },
   "license": "MIT",
+  "homepage": "https://github.com/simsoft/twig",
+  "authors": [
+    {
+      "name": "V. Zang, Loo",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/simsoft/twig/issues",
+    "source": "https://github.com/simsoft/twig"
+  },
+  "require": {
+    "php": "^8.2",
+    "twig/twig": "^3.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpstan/phpstan": "^2.0",
+    "phpunit/phpunit": "^11.0"
+  },
   "autoload": {
     "psr-4": {
       "Simsoft\\Twig\\": "src"
@@ -20,10 +41,20 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Simsoft\\Twig\\Tests\\": "tests",
+      "Simsoft\\Twig\\Tests\\Fixtures\\": "tests/Fixtures",
       "Example\\": "example"
     }
   },
   "scripts": {
-    "test": "phpunit tests"
-  }
+    "test": "phpunit",
+    "analyse": "phpstan analyse",
+    "cs-check": "php-cs-fixer fix --dry-run --diff",
+    "cs-fix": "php-cs-fixer fix"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

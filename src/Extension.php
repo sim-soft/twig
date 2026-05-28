@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simsoft\Twig;
 
 use Twig\Extension\AbstractExtension;
@@ -11,7 +13,8 @@ use Twig\TwigTest;
 /**
  * Extension class.
  *
- * Implement Twig extension.
+ * Base class for building custom Twig extensions.
+ * Subclasses should override init() to register filters, functions, and tests.
  */
 class Extension extends AbstractExtension implements GlobalsInterface
 {
@@ -25,7 +28,7 @@ class Extension extends AbstractExtension implements GlobalsInterface
     protected array $tests = [];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -33,18 +36,19 @@ class Extension extends AbstractExtension implements GlobalsInterface
     }
 
     /**
-     * Initialize.
+     * Initialize extension.
+     *
+     * Override this method to register filters, functions, and tests.
      *
      * @return void
      */
     protected function init(): void
     {
-
     }
 
     /**
      * @inheritdoc
-     * @return array'
+     * @return array<string, mixed>
      */
     public function getGlobals(): array
     {
@@ -81,11 +85,11 @@ class Extension extends AbstractExtension implements GlobalsInterface
     /**
      * Add custom filter.
      *
-     * @link https://twig.symfony.com/doc/3.x/advanced.html#environment-aware-filters Filter options reference.
+     * @link https://twig.symfony.com/doc/3.x/advanced.html#filters
      *
      * @param string $name The filter name.
      * @param callable $callable The filter execution.
-     * @param array $options Filter options.
+     * @param array<string, mixed> $options Filter options.
      * @return void
      */
     public function addFilter(string $name, callable $callable, array $options = []): void
@@ -96,11 +100,11 @@ class Extension extends AbstractExtension implements GlobalsInterface
     /**
      * Add custom function.
      *
-     * @link https://twig.symfony.com/doc/3.x/advanced.html#environment-aware-filters Filter options reference.
+     * @link https://twig.symfony.com/doc/3.x/advanced.html#functions
      *
      * @param string $name The function name.
      * @param callable $callable The function execution.
-     * @param array $options The function options.
+     * @param array<string, mixed> $options The function options.
      * @return void
      */
     public function addFunction(string $name, callable $callable, array $options = []): void
@@ -111,11 +115,11 @@ class Extension extends AbstractExtension implements GlobalsInterface
     /**
      * Add custom test.
      *
-     * @link https://twig.symfony.com/doc/3.x/advanced.html#environment-aware-filters Filter options reference.
+     * @link https://twig.symfony.com/doc/3.x/advanced.html#tests
      *
      * @param string $name The test name.
      * @param callable $callable The test execution.
-     * @param array $options The test options.
+     * @param array<string, mixed> $options The test options.
      * @return void
      */
     public function addTest(string $name, callable $callable, array $options = []): void
