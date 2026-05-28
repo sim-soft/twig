@@ -367,7 +367,7 @@ TWIG;
     {
         $this->createTemplate('filter', '{{ name|reverse_str }}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addFilter('reverse_str', fn(string $s) => strrev($s));
+        $twig->addFilter('reverse_str', fn (string $s) => strrev($s));
 
         $this->assertSame('dlroW', $twig->render('filter', ['name' => 'World']));
     }
@@ -390,7 +390,7 @@ TWIG;
         $this->createTemplate('test', '');
         $twig = new Twig(['path' => $this->templatePath]);
 
-        $result = $twig->addFilter('noop', fn($v) => $v);
+        $result = $twig->addFilter('noop', fn ($v) => $v);
 
         $this->assertSame($twig, $result);
     }
@@ -404,7 +404,7 @@ TWIG;
     {
         $this->createTemplate('func', '{{ add(2, 3) }}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addFunction('add', fn(int $a, int $b) => $a + $b);
+        $twig->addFunction('add', fn (int $a, int $b) => $a + $b);
 
         $this->assertSame('5', $twig->render('func'));
     }
@@ -414,7 +414,7 @@ TWIG;
     {
         $this->createTemplate('html_func', '{{ badge("new")|raw }}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addFunction('badge', fn(string $text) => "<span class=\"badge\">{$text}</span>");
+        $twig->addFunction('badge', fn (string $text) => "<span class=\"badge\">{$text}</span>");
 
         $this->assertSame('<span class="badge">new</span>', $twig->render('html_func'));
     }
@@ -424,7 +424,7 @@ TWIG;
     {
         $this->createTemplate('no_args', '{{ current_year() }}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addFunction('current_year', fn() => '2026');
+        $twig->addFunction('current_year', fn () => '2026');
 
         $this->assertSame('2026', $twig->render('no_args'));
     }
@@ -435,7 +435,7 @@ TWIG;
         $this->createTemplate('test', '');
         $twig = new Twig(['path' => $this->templatePath]);
 
-        $result = $twig->addFunction('noop', fn() => '');
+        $result = $twig->addFunction('noop', fn () => '');
 
         $this->assertSame($twig, $result);
     }
@@ -662,8 +662,8 @@ TWIG;
 
         $result = $twig
             ->share('site', 'MySite')
-            ->addFilter('upper', fn(string $s) => strtoupper($s))
-            ->addFunction('now', fn() => '2026')
+            ->addFilter('upper', fn (string $s) => strtoupper($s))
+            ->addFunction('now', fn () => '2026')
             ->render('chain', ['greeting' => 'Hello']);
 
         $this->assertSame('Hello MySite', $result);
@@ -790,7 +790,7 @@ TWIG;
     {
         $this->createTemplate('custom_test', '{% if 4 is divisible_by(2) %}yes{% else %}no{% endif %}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addTest('divisible_by', fn(int $value, int $divisor) => $value % $divisor === 0);
+        $twig->addTest('divisible_by', fn (int $value, int $divisor) => $value % $divisor === 0);
 
         $this->assertSame('yes', $twig->render('custom_test'));
     }
@@ -800,7 +800,7 @@ TWIG;
     {
         $this->createTemplate('custom_test_fail', '{% if 5 is divisible_by(2) %}yes{% else %}no{% endif %}');
         $twig = new Twig(['path' => $this->templatePath]);
-        $twig->addTest('divisible_by', fn(int $value, int $divisor) => $value % $divisor === 0);
+        $twig->addTest('divisible_by', fn (int $value, int $divisor) => $value % $divisor === 0);
 
         $this->assertSame('no', $twig->render('custom_test_fail'));
     }
@@ -811,7 +811,7 @@ TWIG;
         $this->createTemplate('test', '');
         $twig = new Twig(['path' => $this->templatePath]);
 
-        $result = $twig->addTest('noop', fn($v) => true);
+        $result = $twig->addTest('noop', fn ($v) => true);
 
         $this->assertSame($twig, $result);
     }

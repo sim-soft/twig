@@ -10,6 +10,6 @@ class NoArgFunctionExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFunction('app_version', fn() => '1.0.0');
+        $this->addFunction('app_version', fn () => '1.0.0');
     }
 }

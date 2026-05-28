@@ -10,6 +10,6 @@ class NullSafeFilterExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFilter('default_val', fn(?string $value, string $default) => $value ?? $default);
+        $this->addFilter('default_val', fn (?string $value, string $default) => $value ?? $default);
     }
 }

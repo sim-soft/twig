@@ -35,8 +35,7 @@ readonly class TwigConfig
         public array        $extensions = [],
         public array        $namespaces = [],
         public bool         $minify = false,
-    )
-    {
+    ) {
     }
 
     /**

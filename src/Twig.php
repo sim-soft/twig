@@ -110,7 +110,7 @@ class Twig
         }
 
         if (array_key_exists('debug', $config)) {
-            $options['debug'] = (bool)$config['debug'];
+            $options['debug'] = (bool) $config['debug'];
         }
 
         if (array_key_exists('charset', $config)) {
@@ -122,7 +122,7 @@ class Twig
         }
 
         if (array_key_exists('minify', $config)) {
-            $this->minify = (bool)$config['minify'];
+            $this->minify = (bool) $config['minify'];
         }
 
         $path = $config['path'] ?? '/';

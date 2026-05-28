@@ -10,6 +10,6 @@ class ZeroReturnExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFunction('zero', fn() => 0);
+        $this->addFunction('zero', fn () => 0);
     }
 }

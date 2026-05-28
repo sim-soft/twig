@@ -10,6 +10,6 @@ class EmptyReturnExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFunction('empty_str', fn() => '');
+        $this->addFunction('empty_str', fn () => '');
     }
 }

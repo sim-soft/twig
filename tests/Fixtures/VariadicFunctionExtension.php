@@ -10,6 +10,6 @@ class VariadicFunctionExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFunction('sum', fn(...$args) => array_sum($args), ['is_variadic' => true]);
+        $this->addFunction('sum', fn (...$args) => array_sum($args), ['is_variadic' => true]);
     }
 }

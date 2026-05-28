@@ -10,6 +10,6 @@ class FilterWithArgsExtension extends Extension
 {
     protected function init(): void
     {
-        $this->addFilter('repeat', fn(string $s, int $times) => str_repeat($s, $times));
+        $this->addFilter('repeat', fn (string $s, int $times) => str_repeat($s, $times));
     }
 }

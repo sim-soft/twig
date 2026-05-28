@@ -17,10 +17,10 @@ class TestExtension extends Extension
 
     protected function init(): void
     {
-        $this->addFilter('shout', fn(string $s) => mb_strtoupper($s));
+        $this->addFilter('shout', fn (string $s) => mb_strtoupper($s));
 
-        $this->addFunction('greet', fn(string $name) => "Hi, {$name}!");
+        $this->addFunction('greet', fn (string $name) => "Hi, {$name}!");
 
-        $this->addTest('even_number', fn(int $n) => $n % 2 === 0);
+        $this->addTest('even_number', fn (int $n) => $n % 2 === 0);
     }
 }
