@@ -387,15 +387,6 @@ class Twig
      */
     public static function minify(string $html): string
     {
-        // Remove HTML comments (but preserve IE conditional comments)
-        $html = preg_replace('/<!--(?!\[if).*?-->/s', '', $html) ?? $html;
-
-        // Remove whitespace between tags
-        $html = preg_replace('/>\s+</', '><', $html) ?? $html;
-
-        // Collapse multiple whitespace into a single space
-        $html = preg_replace('/\s{2,}/', ' ', $html) ?? $html;
-
-        return trim($html);
+        return HtmlMinifier::minify($html);
     }
 }
