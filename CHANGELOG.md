@@ -62,6 +62,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - CI now runs against both the lowest and highest allowed `twig/twig` release
   instead of only the newest, and runs weekly so that upstream releases are
   caught without a push to this repository.
+- CI now tests PHP 8.5, which has been stable since November 2025 and was
+  already permitted by the `^8.2` constraint but never exercised.
+- Added an advisory `twig/twig` 4.x job. It is `continue-on-error` and does
+  not gate merges; 4.x remains outside the supported constraint.
 - PHPUnit now fails on deprecations, notices and warnings raised from `src/`.
   Twig announces removals through `trigger_deprecation()`, which uses
   `@trigger_error()`; `ignoreSuppressionOfDeprecations` is enabled so these

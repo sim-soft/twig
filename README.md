@@ -29,9 +29,13 @@ support, and easy extension authoring.
 - Composer
 
 Twig releases below 3.27.0 are affected by published security advisories and
-are not supported. The test suite runs against both the lowest supported and
-the newest Twig release, and treats any deprecation raised from `src/` as a
-build failure, so upcoming removals surface here before they reach you.
+are not supported. The test suite runs on PHP 8.2 through 8.5 against both the
+lowest supported and the newest Twig release, and treats any deprecation raised
+from `src/` as a build failure, so upcoming removals surface here before they
+reach you.
+
+Twig 4.x is not supported yet. CI tracks it in an advisory job so that breaking
+changes are known ahead of the 4.0 release.
 
 ## Installation
 
