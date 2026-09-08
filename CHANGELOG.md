@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-09-08
+
 ### Added
 
 - `HtmlMinifier` class implementing tag-aware HTML minification
@@ -116,7 +118,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Initial release: `Twig` wrapper class and `Extension` base class
 
-[Unreleased]: https://github.com/sim-soft/twig/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/sim-soft/twig/compare/3.0.0...HEAD
+
+[3.0.0]: https://github.com/sim-soft/twig/compare/2.0.0...3.0.0
 
 [2.0.0]: https://github.com/sim-soft/twig/compare/1.0.1...2.0.0
 
