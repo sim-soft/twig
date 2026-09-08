@@ -14,7 +14,7 @@
   ],
   "type": "library",
   "license": "MIT",
-  "homepage": "https://github.com/simsoft/twig",
+  "homepage": "https://github.com/sim-soft/twig",
   "authors": [
     {
       "name": "V. Zang, Loo",
@@ -22,8 +22,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/simsoft/twig/issues",
-    "source": "https://github.com/simsoft/twig"
+    "issues": "https://github.com/sim-soft/twig/issues",
+    "source": "https://github.com/sim-soft/twig"
   },
   "require": {
     "php": "^8.2",

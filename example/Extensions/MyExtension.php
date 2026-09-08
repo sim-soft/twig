@@ -23,14 +23,14 @@ class MyExtension extends Extension
     protected function init(): void
     {
         // Filters
-        $this->addFilter('obj_to_array', fn(object $obj) => (array)$obj);
-        $this->addFilter('slug', fn(string $s) => strtolower(str_replace(' ', '-', $s)));
+        $this->addFilter('obj_to_array', fn (object $obj) => (array) $obj);
+        $this->addFilter('slug', fn (string $s) => strtolower(str_replace(' ', '-', $s)));
 
         // Functions
-        $this->addFunction('dump', fn(...$args) => call_user_func_array('var_dump', $args));
-        $this->addFunction('asset', fn(string $path) => "/assets/{$path}");
+        $this->addFunction('dump', fn (...$args) => call_user_func_array('var_dump', $args));
+        $this->addFunction('asset', fn (string $path) => "/assets/{$path}");
 
         // Tests
-        $this->addTest('even', fn(int $n) => $n % 2 === 0);
+        $this->addTest('even', fn (int $n) => $n % 2 === 0);
     }
 }

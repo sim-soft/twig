@@ -10,14 +10,14 @@ Contributions are welcome. Please follow these guidelines.
 ## Setup
 
 ```shell
-git clone https://github.com/simsoft/twig.git
+git clone https://github.com/sim-soft/twig.git
 cd twig
 composer install
 ```
 
 ## Workflow
 
-1. Fork the repository and create a feature branch from `main`
+1. Fork the repository and create a feature branch from `master`
 2. Write tests for any new functionality
 3. Ensure all checks pass before submitting a PR:
 
@@ -47,4 +47,4 @@ composer cs-fix
 - Keep PRs focused on a single change
 - Include tests for new features or bug fixes
 - Update `CHANGELOG.md` under `[Unreleased]`
-- Rebase on `main` before submitting
+- Rebase on `master` before submitting
