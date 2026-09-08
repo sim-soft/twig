@@ -901,6 +901,60 @@ TWIG;
         ]);
     }
 
+    // =========================================================================
+    // Path Validation
+    // =========================================================================
+
+    #[Test]
+    public function it_throws_when_path_is_missing(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The "path" configuration option is required');
+
+        new Twig([]);
+    }
+
+    /**
+     * @return array<string, array{mixed}>
+     */
+    public static function invalidPathProvider(): array
+    {
+        return [
+            'empty string' => [''],
+            'whitespace only' => ['   '],
+            'empty array' => [[]],
+            'null' => [null],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('invalidPathProvider')]
+    public function it_throws_for_unusable_path(mixed $path): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Twig(['path' => $path]);
+    }
+
+    #[Test]
+    public function it_throws_when_a_path_entry_is_empty(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Every "path" entry must be a non-empty string.');
+
+        new Twig(['path' => [$this->templatePath, '']]);
+    }
+
+    #[Test]
+    public function it_does_not_fall_back_to_the_working_directory(): void
+    {
+        // A missing path previously resolved to '/', exposing project files
+        // such as composer.json as renderable templates.
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Twig(['fileExtension' => '.json']);
+    }
+
     #[Test]
     public function it_accepts_all_valid_config_keys(): void
     {
