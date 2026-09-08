@@ -1,5 +1,12 @@
 # Simsoft Twig
 
+[![Packagist](https://img.shields.io/packagist/v/simsoft/twig?label=Packagist)](https://packagist.org/packages/simsoft/twig)
+[![PHP](https://img.shields.io/packagist/dependency-v/simsoft/twig/php?label=PHP)](https://www.php.net/supported-versions.php)
+[![Test](https://img.shields.io/github/actions/workflow/status/sim-soft/twig/ci.yml?branch=master&label=Test)](https://github.com/sim-soft/twig/actions/workflows/ci.yml)
+[![PHPStan](https://img.shields.io/badge/PHPStan-Level%208-brightgreen)](https://phpstan.org/)
+[![License](https://img.shields.io/packagist/l/simsoft/twig?label=License)](LICENSE)
+[![Online docs](https://img.shields.io/badge/Online%20docs-sim--soft.github.io-blue)](https://sim-soft.github.io/twig/)
+
 A lightweight PHP wrapper for the [Twig 3.x](https://twig.symfony.com/) template
 engine. Simplifies setup with configuration-driven initialization, namespace
 support, and easy extension authoring.
