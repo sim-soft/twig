@@ -25,7 +25,13 @@ support, and easy extension authoring.
 ## Requirements
 
 - PHP 8.2+
+- Twig 3.27+
 - Composer
+
+Twig releases below 3.27.0 are affected by published security advisories and
+are not supported. The test suite runs against both the lowest supported and
+the newest Twig release, and treats any deprecation raised from `src/` as a
+build failure, so upcoming removals surface here before they reach you.
 
 ## Installation
 

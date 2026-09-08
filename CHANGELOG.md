@@ -55,6 +55,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `Twig::minify()` delegates to `HtmlMinifier`. The method signature and
   behaviour on well-formed input are unchanged.
+- `twig/twig` constraint narrowed from `^3.0` to `^3.27`. Every release below
+  3.27.0 is affected by published security advisories and cannot be installed
+  under Composer's default audit policy, so `^3.0` claimed support for
+  versions that were neither installable nor tested.
+- CI now runs against both the lowest and highest allowed `twig/twig` release
+  instead of only the newest, and runs weekly so that upstream releases are
+  caught without a push to this repository.
+- PHPUnit now fails on deprecations, notices and warnings raised from `src/`.
+  Twig announces removals through `trigger_deprecation()`, which uses
+  `@trigger_error()`; `ignoreSuppressionOfDeprecations` is enabled so these
+  are not silently discarded.
 
 ## [2.0.0] - 2026-05-28
 
