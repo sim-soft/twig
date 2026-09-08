@@ -9,13 +9,13 @@ use Twig\Extension\ExtensionInterface;
 /**
  * TwigConfig class
  *
- * Typed a configuration object for the Twig wrapper.
+ * A typed configuration object for the Twig wrapper.
  * Provides IDE autocompletion and validation as an alternative to array config.
  */
 readonly class TwigConfig
 {
     /**
-     * @param string|string[] $path Template directory path(s).
+     * @param string|string[] $path Template directory path(s). Required.
      * @param string $fileExtension Template file extension.
      * @param bool $debug Enable debug mode.
      * @param string $charset Template charset.
@@ -26,7 +26,7 @@ readonly class TwigConfig
      * @param bool $minify Minify HTML output.
      */
     public function __construct(
-        public string|array $path = '/',
+        public string|array $path,
         public string       $fileExtension = '.twig',
         public bool         $debug = false,
         public string       $charset = 'UTF-8',

@@ -51,17 +51,18 @@ class Twig
      * Constructor.
      *
      * @param array<string, mixed>|TwigConfig $config Configuration options:
-     *     - path: string|string[] Template directory path(s)
+     *     - path: string|string[] Template directory path(s). Required.
      *     - fileExtension: string Template file extension (default: '.twig')
      *     - debug: bool Enable debug mode (default: false)
-     *     - Charset: string Template charset (default: 'UTF-8')
+     *     - charset: string Template charset (default: 'UTF-8')
      *     - cache: string Compiled template cache directory
      *     - timezone: string Timezone for date formatting
      *     - extensions: ExtensionInterface[] Extensions to register
      *     - namespaces: array<string, string> Namespace => path mappings
-     *     - Minify: bool Minify HTML output (default: false)
+     *     - minify: bool Minify HTML output (default: false)
      * @throws LoaderError
-     * @throws InvalidArgumentException If an unrecognized config key is provided.
+     * @throws InvalidArgumentException If an unrecognized config key is
+     *     provided, or if 'path' is missing or empty.
      */
     public function __construct(array|TwigConfig $config)
     {
@@ -70,6 +71,7 @@ class Twig
         }
 
         $this->validateConfig($config);
+        $this->validatePath($config);
         $this->twig = $this->buildEngine($config);
     }
 
@@ -91,6 +93,41 @@ class Twig
                     implode(', ', self::VALID_CONFIG_KEYS),
                 ),
             );
+        }
+    }
+
+    /**
+     * Validate that a usable template path was provided.
+     *
+     * Without this check a missing 'path' would silently fall back to the
+     * filesystem root, resolving to the current working directory and exposing
+     * arbitrary project files as templates.
+     *
+     * @param array<string, mixed> $config
+     * @throws InvalidArgumentException
+     */
+    protected function validatePath(array $config): void
+    {
+        $path = $config['path'] ?? null;
+
+        if (is_string($path)) {
+            $path = trim($path) === '' ? [] : [$path];
+        }
+
+        if (!is_array($path) || $path === []) {
+            throw new InvalidArgumentException(
+                'The "path" configuration option is required and must be a '
+                . 'non-empty string or array of strings pointing to your '
+                . 'template directory.',
+            );
+        }
+
+        foreach ($path as $item) {
+            if (!is_string($item) || trim($item) === '') {
+                throw new InvalidArgumentException(
+                    'Every "path" entry must be a non-empty string.',
+                );
+            }
         }
     }
 
@@ -125,8 +162,7 @@ class Twig
             $this->minify = (bool) $config['minify'];
         }
 
-        $path = $config['path'] ?? '/';
-        $loader = new FilesystemLoader($path);
+        $loader = new FilesystemLoader($config['path']);
 
         if (array_key_exists('namespaces', $config) && is_array($config['namespaces'])) {
             foreach ($config['namespaces'] as $namespace => $namespacePath) {
@@ -379,23 +415,16 @@ class Twig
     /**
      * Minify an HTML string.
      *
-     * Removes HTML comments (except conditionals), collapses whitespace
-     * between tags, and trims the result.
+     * Removes HTML comments (except conditionals), collapses insignificant
+     * whitespace, and trims the result. Minification is tag-aware: the content
+     * of `<pre>`, `<textarea>`, `<script>`, and `<style>` is preserved
+     * verbatim, and attribute values are never rewritten.
      *
      * @param string $html Raw HTML content.
      * @return string Minified HTML.
      */
     public static function minify(string $html): string
     {
-        // Remove HTML comments (but preserve IE conditional comments)
-        $html = preg_replace('/<!--(?!\[if).*?-->/s', '', $html) ?? $html;
-
-        // Remove whitespace between tags
-        $html = preg_replace('/>\s+</', '><', $html) ?? $html;
-
-        // Collapse multiple whitespace into a single space
-        $html = preg_replace('/\s{2,}/', ' ', $html) ?? $html;
-
-        return trim($html);
+        return HtmlMinifier::minify($html);
     }
 }

@@ -5,15 +5,27 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  # Catch breakage introduced by a new twig/twig release even when nothing
+  # is pushed here. Runs weekly on Monday at 03:17 UTC.
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        php: [ '8.2', '8.3', '8.4' ]
+        php: [ '8.2', '8.3', '8.4', '8.5' ]
+        dependencies: [ 'highest' ]
+        # Also prove the floor of the twig/twig constraint still works,
+        # not just the newest release Composer happens to resolve.
+        include:
+          - php: '8.2'
+            dependencies: 'lowest'
 
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} (${{ matrix.dependencies }} deps)
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +37,44 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
+        uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+
+      - name: Show resolved twig/twig version
+        run: composer show twig/twig | head -2
+
+      - name: Run tests
+        run: vendor/bin/phpunit
+
+  # Early warning for the next major twig/twig release. 4.x is outside the
+  # `^3.27` constraint and is NOT supported; this job exists so that a
+  # breaking change upstream shows up here rather than after 4.0 ships.
+  # It is advisory only and must never block a merge.
+  twig-next:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    name: Twig 4.x (advisory, may fail)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Allow unstable twig/twig
+        run: composer config minimum-stability dev
+
+      - name: Install twig/twig 4.x
+        run: |
+          composer require "twig/twig:4.x-dev" \
+            --no-interaction --prefer-dist --with-all-dependencies
+
+      - name: Show resolved twig/twig version
+        run: composer show twig/twig | head -2
 
       - name: Run tests
         run: vendor/bin/phpunit

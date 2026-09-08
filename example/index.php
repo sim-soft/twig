@@ -6,7 +6,6 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Example\Extensions\MyExtension;
 use Simsoft\Twig\Twig;
-use Simsoft\Twig\TwigConfig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -25,7 +24,8 @@ try {
     ]);
 
     // Option 2: Typed config object (IDE-friendly)
-    // $twig = new Twig(new TwigConfig(
+    // Add `use Simsoft\Twig\TwigConfig;` above to use the short name.
+    // $twig = new Twig(new \Simsoft\Twig\TwigConfig(
     //     path: __DIR__ . '/templates',
     //     debug: true,
     //     extensions: [new MyExtension()],
